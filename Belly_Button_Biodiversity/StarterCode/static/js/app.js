@@ -1,26 +1,26 @@
-// // Build function and use the D3 library to get samples.json data to biuld plot
+//Use the D3 library to read in samples.json.
 function buildPlot(sample) {
     d3.json("samples.json").then((data) => {
         
-        // Build plot variable for samples.jason
+// Build plot variable for samples.jason
         var samples = data.samples;
 
-        // Use d3 to   set  location for bar  chart
+// Use d3 to   set  location for bar  chart
         var  barLocation = d3.select("#bar");
 
-        // Filter data for object with corresponding sample number
+// Filter data for object with corresponding sample number
         var resultArray = samples.filter(sampleObject => sampleObject.id == sample);
         var result  = resultArray[0];
         var otu_ids = result.otu_ids;
         var otu_labels = result.otu_labels
         sample_values=result.sample_values;
 
-        // Build horizontal bar chart
+// Build horizontal bar chart
         var yticks = otu_ids.slice(0,10).map(outID => `OTU ${outID}`).reverse();
         var values = sample_values.slice(0,10).reverse();
         var labels = otu_labels.slice(0,10).reverse();
 
-        // Create the horizantal bar trace
+// Create the horizantal bar trace
         var barData = [{
             y: yticks,
             x: values,
@@ -39,14 +39,14 @@ function buildPlot(sample) {
             }
         };
 
-        // Plot horizontal bar chart
+// Plot horizontal bar chart
         Plotly.newPlot("bar", barData, barLayout, barLocation);
 
-        //  Build the Bubble Chart
+//  Build the Bubble Chart
         d3.json("samples.json").then((data) => {
             var bubble_loc = d3.select("#bubble")
 
-            // Create bubble chart trace
+// Create bubble chart trace
             var bubbleData = [
                 {
                     x: otu_ids,
@@ -70,7 +70,7 @@ function buildPlot(sample) {
 
             };
 
-            // Plot bubble charts
+// Plot bubble charts
             Plotly.newPlot("bubble", bubbleData, bubbleLayout, bubble_loc);
 
         });
@@ -81,27 +81,23 @@ function buildPlot(sample) {
 
 function buildMetada(sample) {
 
-    // Get metadata from samples.json
+// Get metadata from samples.json
     d3.json("samples.json").then((data) => {
         var meta_data = data.metadata;
 
-        // Filter and use d3.select to assign metadata side panell variablle
+// Filter and use d3.select to assign metadata side panell variablle
 
         var resultArray = meta_data.filter(sampleObject => sampleObject.id == sample);
         var result = resultArray[0];
         var meta_panel = d3.select("#sample-metadata");
-
-        // Clear any existing metadata using `.html("")
         meta_panel.html("");
-
-        // Use Object.enteries to loop through data and append each key-value pair to the metadata panel side
         Object.entries(result).forEach(([key, value]) => {
             meta_panel.append("h5").text(`${key}: ${value}`);
 
         }
         );
-        //  Build Gauge Chart
-        // buildgauge(results.wfreq);
+//  Build Gauge Chart
+
 
         var guageData = [
             {
@@ -138,7 +134,7 @@ function init() {
     var dropdownMenu = d3.select("#selDataset");
    
 
-    // Loop through samples.json and add `option`, text and property for sample value  to populate select options
+// Loop through samples.json and add `option`, text and property for sample value  to populate select options
     d3.json("samples.json").then((data) => {
         var sampleNames = data.names;
         
@@ -149,7 +145,7 @@ function init() {
             .property("value", sample);
     });
 
-    // Build default/initial plots using first sample from the list
+// Build default/initial plots using first sample from the list
     defaultSample = sampleNames[0];
     buildPlot(defaultSample);
     buildMetada(defaultSample);
@@ -160,7 +156,7 @@ function init() {
 
 function optionChanged(newSample) {
 
-    // Get new data each time a new sample is selected
+// Get new data each time a new sample is selected
     buildPlot(newSample);
     buildMetada(newSample);
 }
