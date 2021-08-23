@@ -12,7 +12,7 @@ function buildPlot(sample) {
         var otu_labels = result.otu_labels
         sample_values=result.sample_values;
 
-// Use d3 to   set  location for bar  chart
+// Use d3 to set location for bar  chart
 var  barLocation = d3.select("#bar");
 
 // Build horizontal bar chart
@@ -105,7 +105,6 @@ function buildMetada(sample) {
 function init() {
     var dropdownMenu = d3.select("#selDataset");
    
-
  
     d3.json("samples.json").then((data) => {
         var sampleNames = data.names;
