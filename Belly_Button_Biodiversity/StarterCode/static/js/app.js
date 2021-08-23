@@ -1,4 +1,4 @@
-//readsamples.json.
+//Use the D3 library to read in `samples.json`.
 function buildPlot(sample) {
     d3.json("samples.json").then((data) => {
         
