@@ -77,7 +77,7 @@ var  barLocation = d3.select("#bar");
 
     })}
  
-// Bonus: Build Gauge Chart
+
 
 function buildMetada(sample) {
 
