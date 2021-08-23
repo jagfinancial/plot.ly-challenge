@@ -77,7 +77,7 @@ var  barLocation = d3.select("#bar");
 
     })}
  
-
+//Display the sample metadata, i.e., an individual's demographic information.
 
 function buildMetada(sample) {
 
