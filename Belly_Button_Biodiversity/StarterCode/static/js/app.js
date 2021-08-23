@@ -42,7 +42,7 @@ var  barLocation = d3.select("#bar");
  
         Plotly.newPlot("bar", barData, barLayout, barLocation);
 
-//  Build the Bubble Chart
+//  Create a bubble chart that displays each sample.
         d3.json("samples.json").then((data) => {
             var bubble_loc = d3.select("#bubble")
 
